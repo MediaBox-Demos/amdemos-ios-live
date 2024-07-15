@@ -1,0 +1,47 @@
+#use_frameworks!
+install! 'cocoapods', :deterministic_uuids => false
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+
+def aliyun_uicom
+    
+    # pod "AUILive/LiveLocalSDK/IntelligentDenoise", :path => "../"
+    # pod "AUILiveLocalSDK/IntelligentDenoise", :path => "../AUILiveLocalSDK"
+
+    pod "AUIFoundation", :path => "../AUIBaseKits/AUIFoundation"
+    pod "AUIBeauty/Queen", :path => "../AUIBaseKits/AUIBeauty"
+
+end
+
+
+target 'AlivcLiveDemo' do
+  
+    pod 'AliVCSDK_InteractiveLive'
+
+    pod "AUILive/All", :path => "../"
+    pod "AUILive/AliVCSDK_InteractiveLive", :path => "../"
+    
+    aliyun_uicom
+
+end
+
+target 'AlivcLiveDemoBasic' do
+
+    pod 'AlivcLivePusher'
+
+    pod "AUILive/LiveBasic", :path => "../"
+    pod "AUILive/AlivcLivePusher_Basic", :path => "../"
+   
+    aliyun_uicom
+
+end
+
+
+
+post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+        config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+        config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+    end
+end
